@@ -1,0 +1,12 @@
+site_name: project_koff_web
+site_description: Project Koff API
+repo_url: https://github.com/dinoilic/project-koff-web
+site_dir: site
+copyright: Copyright &copy; 2018, <a href="https://github.com/dinoilic">dinoilic</a>.
+dev_addr: 0.0.0.0:8001
+
+pages:
+  - Home: 'index.md'
+  - API:
+    - Authentication: 'api/authentication.md'
+    - Users: 'api/users.md'

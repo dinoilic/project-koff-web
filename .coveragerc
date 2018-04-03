@@ -1,0 +1,10 @@
+[run]
+branch = True
+omit = *migrations*,
+       *urls*,
+       *test*,
+       *admin*,
+       ./manage.py,
+       ./project_koff_web/config/*,
+       ./project_koff_web/wsgi.py,
+       *__init__*
