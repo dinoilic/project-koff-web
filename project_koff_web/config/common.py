@@ -21,6 +21,7 @@ class Common(Configuration):
         'rest_framework.authtoken',  # token authentication
         'django_filters',            # for filtering rest endpoints
         'treebeard',
+        'taggit',
 
         # Your apps
         'project_koff_web.users',
@@ -54,7 +55,7 @@ class Common(Configuration):
     # Postgres
     DATABASES = {
         'default': dj_database_url.config(
-            default='postgres://dilic:@localhost:5432/project_koff_web',
+            default='postgres://postgres:@localhost:5432/project_koff_web',
             conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
         )
     }

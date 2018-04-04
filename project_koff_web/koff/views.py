@@ -9,5 +9,4 @@ class CategoryViewSet(mixins.ListModelMixin,
     """
     Lists user accounts
     """
-    queryset = Category.get_tree()
-    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
