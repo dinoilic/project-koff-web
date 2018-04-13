@@ -24,6 +24,13 @@ class Command(BaseCommand):
         models.Category.objects.create(name="Auto moto i nautika")
         models.Category.objects.create(name="Gradnja")
         models.Category.objects.create(name="Dom i ured")
+        models.Category.objects.create(name="Računala i telekomunikacije")
+        models.Category.objects.create(name="Prijevoz")
+        models.Category.objects.create(name="Lorem")
+        models.Category.objects.create(name="Ipsum")
+        models.Category.objects.create(name="Dolor Sit Amet")
+        models.Category.objects.create(name="Elit")
+        models.Category.objects.create(name="Lorem Ipsum Dolor")
 
         categories = models.Category.objects.all()
 
@@ -46,3 +53,10 @@ class Command(BaseCommand):
         models.Category.objects.create(name="Električar, Elektroinstalacije, Elektro servis", parent_category=categories[2])
         models.Category.objects.create(name="Servis kućanskih aparata", parent_category=categories[2])
 
+        models.Category.objects.create(name="Elektronika - proizvodnja, prodaja, servis", parent_category=categories[3])
+        models.Category.objects.create(name="Servis mobitela", parent_category=categories[3])
+        models.Category.objects.create(name="Servis računala, servis kompjutera", parent_category=categories[3])
+
+        models.Category.objects.create(name="Autobusni prijevoz", parent_category=categories[4])
+        models.Category.objects.create(name="Pomoć za selidbu", parent_category=categories[4])
+        models.Category.objects.create(name="Taxi prijevoz", parent_category=categories[4])
