@@ -22,6 +22,7 @@ class Common(Configuration):
         'django_filters',            # for filtering rest endpoints
         'treebeard',
         'taggit',
+        'django_admin_generator',
 
         # Your apps
         'project_koff_web.users',

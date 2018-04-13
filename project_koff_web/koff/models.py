@@ -158,7 +158,7 @@ class Rating(models.Model):
         (5, 'Very High'),
     )
 
-    rating = models.IntegerField(default=0, choices=RATINGS)
+    rating = models.IntegerField(default=5, choices=RATINGS)
 
 
 @python_2_unicode_compatible
