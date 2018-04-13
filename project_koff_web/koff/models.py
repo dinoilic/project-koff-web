@@ -3,7 +3,6 @@ from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User
 
 from taggit.managers import TaggableManager
 
@@ -16,11 +15,17 @@ class Category(models.Model):
         verbose_name=_('Category name'),
         help_text=_('This field is used for naming the category.')
     )
+
     parent_category = models.ForeignKey(
         'self',
         on_delete=models.CASCADE, #SET_NULL
         blank=True,
         null=True
+    )
+
+    entities = models.ManyToManyField(
+        'BusinessEntity',
+        through='EntityCategories',
     )
 
     class Meta:
@@ -63,6 +68,16 @@ class BusinessEntity(models.Model):
             models.URLField(max_length=200),
     )
 
+    telephone_references = models.ManyToManyField(
+        'TelephoneReference',
+        through='EntityTelephoneReference',
+    )
+
+    social_references = models.ManyToManyField(
+        'SocialReference',
+        through='EntitySocialReference',
+    )
+
     tags = TaggableManager()
 
     class Meta:
@@ -89,10 +104,21 @@ class EntityCategories(models.Model):
 @python_2_unicode_compatible
 class WorkingHours(models.Model):
 
+    DAYS = (
+        ('Mon', 'Monday'),
+        ('Tue', 'Tuesday'),
+        ('Wed', 'Wednesday'),
+        ('Thu', 'Thursday'),
+        ('Fri', 'Friday'),
+        ('Sat', 'Saturday'),
+        ('Sun', 'Sunday'),
+    )
+
     name = models.CharField(
         max_length=3,
         verbose_name=_('Short day name'),
-        help_text=_('This field is used for short naming the day of the week.')
+        help_text=_('This field is used for short naming the day of the week.'),
+        choices=DAYS
     )
 
     start_time = models.TimeField()
@@ -124,7 +150,7 @@ class Rating(models.Model):
         on_delete=models.CASCADE
     )
 
-    PRIORITIES = (
+    RATINGS = (
         (1, 'Very Low'),
         (2, 'Low'),
         (3, 'Medium'),
@@ -132,7 +158,7 @@ class Rating(models.Model):
         (5, 'Very High'),
     )
 
-    rating = models.IntegerField(default=0, choices=PRIORITIES)
+    rating = models.IntegerField(default=0, choices=RATINGS)
 
 
 @python_2_unicode_compatible
