@@ -6,9 +6,8 @@ from . import models
 
 class CategoryAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'name', 'parent_category')
-    list_filter = ('parent_category',)
-    raw_id_fields = ('entities',)
+    list_display = ('id', 'name', 'parent')
+    list_filter = ('parent',)
     search_fields = ('name',)
 
 
@@ -16,7 +15,7 @@ class BusinessEntityAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'name', 'active', 'address', 'e_mail', 'web_site')
     list_filter = ('active',)
-    raw_id_fields = ('telephone_references', 'social_references', 'tags')
+    raw_id_fields = ('telephone_references', 'social_references', 'tags', 'categories',)
     search_fields = ('name',)
 
 

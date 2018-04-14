@@ -16,17 +16,15 @@ class Category(models.Model):
         help_text=_('This field is used for naming the category.')
     )
 
-    parent_category = models.ForeignKey(
+    parent = models.ForeignKey(
         'self',
-        on_delete=models.CASCADE, #SET_NULL
+        on_delete=models.CASCADE,  # SET_NULL
         blank=True,
         null=True
     )
 
-    entities = models.ManyToManyField(
-        'BusinessEntity',
-        through='EntityCategories',
-    )
+    def get_children(self):
+        return Category.objects.filter(parent=self)
 
     class Meta:
         verbose_name = _('Category')
@@ -76,6 +74,11 @@ class BusinessEntity(models.Model):
     social_references = models.ManyToManyField(
         'SocialReference',
         through='EntitySocialReference',
+    )
+
+    categories = models.ManyToManyField(
+        'Category',
+        through='EntityCategories',
     )
 
     tags = TaggableManager()
