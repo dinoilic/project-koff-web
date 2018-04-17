@@ -16,6 +16,14 @@ class Category(models.Model):
         help_text=_('This field is used for naming the category.')
     )
 
+    icon_name = models.CharField(
+        max_length=50,
+        verbose_name=_('Icon name'),
+        help_text=_('This field is used for picking the icon in app.'),
+        null=True,
+        blank=True
+    )
+
     parent = models.ForeignKey(
         'self',
         on_delete=models.CASCADE,  # SET_NULL
