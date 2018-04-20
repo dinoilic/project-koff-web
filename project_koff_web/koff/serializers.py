@@ -13,5 +13,5 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         depth = 1
-        fields = ('pk', 'name', 'children')
-        read_only_fields = ('pk', 'name', 'children')
+        fields = ('pk', 'name', 'image', 'children')
+        read_only_fields = ('pk', 'name', 'image', 'children')

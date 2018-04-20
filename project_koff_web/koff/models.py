@@ -23,6 +23,11 @@ class Category(models.Model):
         null=True
     )
 
+    image = models.ImageField(
+        upload_to='category_images/', 
+        default='category_images/no_image.jpg'
+    )
+
     def get_children(self):
         return Category.objects.filter(parent=self)
 

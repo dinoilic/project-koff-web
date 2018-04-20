@@ -21,6 +21,7 @@ class CategoryDetail(mixins.RetrieveModelMixin,
     """
     Retrieves a category
     """
+
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 

@@ -21,7 +21,7 @@ class Command(BaseCommand):
             'superuser'
         )
 
-        models.Category.objects.create(name="Auto moto i nautika")
+        models.Category.objects.create(name="Auto moto i nautika", image="category_images/auspuh.gif")
         models.Category.objects.create(name="Gradnja")
         models.Category.objects.create(name="Dom i ured")
         models.Category.objects.create(name="Računala i telekomunikacije")
