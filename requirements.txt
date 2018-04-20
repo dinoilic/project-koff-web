@@ -41,4 +41,3 @@ django-taggit==0.22.2
 django-polymorphic==2.0.2
 django-admin-generator==2.1.0
 djangorestframework-recursive==0.1.2
-
