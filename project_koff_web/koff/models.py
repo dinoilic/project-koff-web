@@ -1,8 +1,11 @@
 from django.db import models
+from django.contrib.gis.db import models as gismodels
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.gis.geos import GEOSGeometry
+from django.contrib.gis.geos import Point
 
 from taggit.managers import TaggableManager
 
@@ -50,9 +53,7 @@ class Category(models.Model):
 @python_2_unicode_compatible
 class BusinessEntity(models.Model):
 
-    # dodati Filer za sliku BusinessEntityja (paziti, zbog nekog razloga
-    # instalira Django 1.11!!)
-    # dodati location
+    # dodati image
     name = models.CharField(
         max_length=50,
         verbose_name=_('Business Entity name'),
@@ -68,7 +69,20 @@ class BusinessEntity(models.Model):
 
     address = models.CharField(
         max_length=50,
-        verbose_name=_('Business Entity address'),
+        verbose_name=_('Business Entity address')
+    )
+
+    location = gismodels.PointField(
+        null=True,
+        blank=True,
+        default=Point(0, 0),
+        verbose_name="Location"
+    )
+
+    description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name="Description in Markdown"
     )
 
     e_mail = ArrayField(
@@ -76,7 +90,7 @@ class BusinessEntity(models.Model):
     )
 
     web_site = ArrayField(
-            models.URLField(max_length=200),
+            models.URLField(max_length=200, blank=True),
     )
 
     telephone_references = models.ManyToManyField(
@@ -120,6 +134,7 @@ class EntityCategories(models.Model):
 @python_2_unicode_compatible
 class WorkingHours(models.Model):
 
+    # ne zaboraviti da može i ne raditi
     DAYS = (
         ('Mon', 'Monday'),
         ('Tue', 'Tuesday'),

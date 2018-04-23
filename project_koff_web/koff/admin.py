@@ -13,7 +13,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class BusinessEntityAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'name', 'active', 'address', 'e_mail', 'web_site')
+    list_display = ('id', 'name', 'active', 'address', 'location', 'e_mail', 'web_site')
     list_filter = ('active',)
     raw_id_fields = ('telephone_references', 'social_references', 'tags', 'categories',)
     search_fields = ('name',)

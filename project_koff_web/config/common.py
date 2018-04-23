@@ -15,6 +15,7 @@ class Common(Configuration):
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'django.contrib.gis',
 
         # Third party apps
         'rest_framework',            # utilities for rest apis
@@ -56,7 +57,7 @@ class Common(Configuration):
     # Postgres
     DATABASES = {
         'default': dj_database_url.config(
-            default='postgres://postgres:@localhost:5432/project_koff_web',
+            default='postgis://postgres:@localhost:5432/project_koff_web',
             conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
         )
     }
