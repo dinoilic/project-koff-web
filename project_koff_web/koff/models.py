@@ -134,15 +134,23 @@ class EntityCategories(models.Model):
 @python_2_unicode_compatible
 class WorkingHours(models.Model):
 
-    # ne zaboraviti da može i ne raditi
+    Mon = 'Mon'
+    Tue = 'Tue'
+    Wed = 'Wed'
+    Thu = 'Thu'
+    Fri = 'Fri'
+    Sat = 'Sat'
+    Sun = 'Sun'
+
+    # ne zaboraviti da može i ne raditi određeni dan
     DAYS = (
-        ('Mon', 'Monday'),
-        ('Tue', 'Tuesday'),
-        ('Wed', 'Wednesday'),
-        ('Thu', 'Thursday'),
-        ('Fri', 'Friday'),
-        ('Sat', 'Saturday'),
-        ('Sun', 'Sunday'),
+        (Mon, 'Monday'),
+        (Tue, 'Tuesday'),
+        (Wed, 'Wednesday'),
+        (Thu, 'Thursday'),
+        (Fri, 'Friday'),
+        (Sat, 'Saturday'),
+        (Sun, 'Sunday'),
     )
 
     name = models.CharField(
@@ -171,7 +179,7 @@ class WorkingHours(models.Model):
 @python_2_unicode_compatible
 class Rating(models.Model):
 
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
@@ -195,7 +203,7 @@ class Rating(models.Model):
 @python_2_unicode_compatible
 class Comment(models.Model):
 
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )

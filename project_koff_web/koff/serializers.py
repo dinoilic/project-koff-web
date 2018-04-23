@@ -33,9 +33,10 @@ class LocationField(serializers.Field):
 class BusinessEntitySerializer(serializers.ModelSerializer):
     distance = DistanceField()
     location = LocationField()
+    avg_rating = serializers.FloatField()
 
     class Meta:
         model = BusinessEntity
 
-        fields = ('pk', 'name', 'address', 'distance', 'location')
-        read_only_fields = ('pk', 'name', 'address', 'distance', 'location')
+        fields = ('pk', 'name', 'address', 'distance', 'location', 'avg_rating')
+        read_only_fields = ('pk', 'name', 'address', 'distance', 'location', 'avg_rating')
