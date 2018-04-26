@@ -157,6 +157,101 @@ class Command(BaseCommand):
             category=category
         )
 
+        current_address = 'Istarska ul. 92, 51000, Rijeka'
+        geocode_result = gmaps.geocode(current_address)
+        loc_coords = geocode_result[0]['geometry']['location']
+
+        business = models.BusinessEntity.objects.create(
+            name="Car Service Bivio",
+            address=current_address,
+            location=GEOSGeometry('POINT(%f %f)' % (loc_coords['lat'], loc_coords['lng'])),
+            e_mail=['bivio@mail.hr'],
+            web_site=['bivio.hr']
+        )
+        business.tags.add('auspuh', 'auto')
+
+        category = models.Category.objects.filter(name="Auspuh, Auto staklo, Auto plin")[0]
+        models.EntityCategories.objects.create(
+            entity=business,
+            category=category
+        )
+
+        current_address = 'Ul. Ante Mandića 37, 51000, Rijeka'
+        geocode_result = gmaps.geocode(current_address)
+        loc_coords = geocode_result[0]['geometry']['location']
+
+        business = models.BusinessEntity.objects.create(
+            name="AUTOMEHANIČAR TIHOMIR VESIĆ",
+            address=current_address,
+            location=GEOSGeometry('POINT(%f %f)' % (loc_coords['lat'], loc_coords['lng'])),
+            e_mail=['tihomir@mail.hr'],
+            web_site=['tihomir.hr']
+        )
+        business.tags.add('auspuh', 'auto')
+
+        category = models.Category.objects.filter(name="Auspuh, Auto staklo, Auto plin")[0]
+        models.EntityCategories.objects.create(
+            entity=business,
+            category=category
+        )
+
+        current_address = 'Ul. Milice Jadranić 7B, 51000, Rijeka'
+        geocode_result = gmaps.geocode(current_address)
+        loc_coords = geocode_result[0]['geometry']['location']
+
+        business = models.BusinessEntity.objects.create(
+            name="Autoservis Gordan",
+            address=current_address,
+            location=GEOSGeometry('POINT(%f %f)' % (loc_coords['lat'], loc_coords['lng'])),
+            e_mail=['gordan@mail.hr'],
+            web_site=['gordan.hr']
+        )
+        business.tags.add('auspuh', 'auto')
+
+        category = models.Category.objects.filter(name="Auspuh, Auto staklo, Auto plin")[0]
+        models.EntityCategories.objects.create(
+            entity=business,
+            category=category
+        )
+
+        current_address = 'Selinari 6, 51000, Rijeka'
+        geocode_result = gmaps.geocode(current_address)
+        loc_coords = geocode_result[0]['geometry']['location']
+
+        business = models.BusinessEntity.objects.create(
+            name="Motorsport Đumić",
+            address=current_address,
+            location=GEOSGeometry('POINT(%f %f)' % (loc_coords['lat'], loc_coords['lng'])),
+            e_mail=['dumic@mail.hr'],
+            web_site=['dumic.hr']
+        )
+        business.tags.add('auspuh', 'auto')
+
+        category = models.Category.objects.filter(name="Auspuh, Auto staklo, Auto plin")[0]
+        models.EntityCategories.objects.create(
+            entity=business,
+            category=category
+        )
+
+        current_address = 'Ul. Tome Strižića 12A, 51000, Rijeka'
+        geocode_result = gmaps.geocode(current_address)
+        loc_coords = geocode_result[0]['geometry']['location']
+
+        business = models.BusinessEntity.objects.create(
+            name="Automotive Center Glavan",
+            address=current_address,
+            location=GEOSGeometry('POINT(%f %f)' % (loc_coords['lat'], loc_coords['lng'])),
+            e_mail=['glavan@mail.hr'],
+            web_site=['glavan.hr']
+        )
+        business.tags.add('auspuh', 'auto')
+
+        category = models.Category.objects.filter(name="Auspuh, Auto staklo, Auto plin")[0]
+        models.EntityCategories.objects.create(
+            entity=business,
+            category=category
+        )
+
         businesses = models.BusinessEntity.objects.all()
 
         models.WorkingHours.objects.create(name=models.WorkingHours.Mon, start_time=datetime.time(8, 0), end_time=datetime.time(20, 0), business_entity=businesses[0])

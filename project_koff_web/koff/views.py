@@ -1,6 +1,7 @@
 from rest_framework import viewsets, mixins, generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.pagination import PageNumberPagination
 from .models import Category, BusinessEntity
 from django.db.models import Avg
 from .serializers import CategorySerializer, BusinessEntitySerializer
@@ -29,12 +30,19 @@ class CategoryDetail(mixins.RetrieveModelMixin,
     serializer_class = CategorySerializer
 
 
+class BusinessEntitiesPagination(PageNumberPagination):
+    page_size = 2
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
+
+
 class BusinessEntities(generics.ListAPIView,
                        viewsets.GenericViewSet):
     """
     Lists business entities
     """
     serializer_class = BusinessEntitySerializer
+    pagination_class = BusinessEntitiesPagination
 
     def get_queryset(self):
         sort_mode = self.request.query_params.get('sort', None)

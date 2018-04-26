@@ -6,13 +6,13 @@ from rest_framework_recursive.fields import RecursiveField
 class DistanceField(serializers.Field):
 
     def to_representation(self, obj):
-        return "%.9f" % (obj.m)
+        return obj.m
 
 
 class LocationField(serializers.Field):
 
     def to_representation(self, obj):
-        return "%.6f, %.6f" % (obj.x, obj.y)
+        return (obj.x, obj.y)
 
 
 class CategorySerializer(serializers.ModelSerializer):
