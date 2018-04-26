@@ -167,6 +167,14 @@ class Command(BaseCommand):
         models.WorkingHours.objects.create(name=models.WorkingHours.Sat, start_time=datetime.time(8, 0), end_time=datetime.time(13, 0), business_entity=businesses[0])
         #models.WorkingHours.objects.create(name=models.WorkingHours.Sun, start_time=datetime.time(8, 0), end_time=datetime.time(13, 0), business_entity=businesses[0]) NE RADI NED
 
+        models.WorkingHours.objects.create(name=models.WorkingHours.Mon, start_time=datetime.time(8, 0), end_time=datetime.time(20, 0), business_entity=businesses[1])
+        models.WorkingHours.objects.create(name=models.WorkingHours.Tue, start_time=datetime.time(8, 0), end_time=datetime.time(20, 0), business_entity=businesses[1])
+        models.WorkingHours.objects.create(name=models.WorkingHours.Wed, start_time=datetime.time(8, 0), end_time=datetime.time(20, 0), business_entity=businesses[1])
+        models.WorkingHours.objects.create(name=models.WorkingHours.Thu, start_time=datetime.time(8, 0), end_time=datetime.time(21, 0), business_entity=businesses[1])
+        models.WorkingHours.objects.create(name=models.WorkingHours.Fri, start_time=datetime.time(8, 0), end_time=datetime.time(21, 0), business_entity=businesses[1])
+        models.WorkingHours.objects.create(name=models.WorkingHours.Sat, start_time=datetime.time(8, 0), end_time=datetime.time(13, 0), business_entity=businesses[1])
+
+
         users = User.objects.all()
 
         models.Rating.objects.create(user=users[0], entity=businesses[0], rating=2)

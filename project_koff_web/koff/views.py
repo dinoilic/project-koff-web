@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from .models import Category, BusinessEntity
 from django.db.models import Avg
 from .serializers import CategorySerializer, BusinessEntitySerializer
+from datetime import datetime
 
 from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
@@ -50,6 +51,17 @@ class BusinessEntities(generics.ListAPIView,
                 D(km=radius)
             )
         )
+
+        is_working_time = int(self.request.query_params.get('is_working', None))
+
+        if(is_working_time == 0):
+            print("Day name %s" % (datetime.now().strftime('%a')))
+            print("Time %s" % (datetime.now().time()))
+            queryset = queryset.filter( # return only those that are working now
+                workinghours__name__in=[datetime.now().strftime('%a')], # returns current day in short format (Mon, Tue)
+                workinghours__start_time__lte=datetime.now().time(),
+                workinghours__end_time__gte=datetime.now().time()
+            )
 
         # Get distance from provided location to BusinessEntity location
         dist = Distance('location', Point(lat, lon, srid=4326))
