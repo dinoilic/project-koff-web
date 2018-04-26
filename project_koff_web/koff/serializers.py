@@ -1,6 +1,18 @@
 from rest_framework import serializers
-from .models import Category, BusinessEntity
+from .models import Category, BusinessEntity, WorkingHours
 from rest_framework_recursive.fields import RecursiveField
+
+
+class DistanceField(serializers.Field):
+
+    def to_representation(self, obj):
+        return "%.9f" % (obj.m)
+
+
+class LocationField(serializers.Field):
+
+    def to_representation(self, obj):
+        return "%.6f, %.6f" % (obj.x, obj.y)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -18,25 +30,23 @@ class CategorySerializer(serializers.ModelSerializer):
         read_only_fields = ('pk', 'name', 'image', 'children')
 
 
-class DistanceField(serializers.Field):
-
-    def to_representation(self, obj):
-        return "%.9f" % (obj.m)
-
-
-class LocationField(serializers.Field):
-
-    def to_representation(self, obj):
-        return "%.6f, %.6f" % (obj.x, obj.y)
+class WorkingHoursSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkingHours
+        fields = ('name', 'start_time', 'end_time')
 
 
 class BusinessEntitySerializer(serializers.ModelSerializer):
     distance = DistanceField()
     location = LocationField()
     avg_rating = serializers.FloatField()
+    working_hours = WorkingHoursSerializer(
+        source='workinghours_set',
+        many=True
+    )
 
     class Meta:
         model = BusinessEntity
 
-        fields = ('pk', 'name', 'address', 'distance', 'location', 'avg_rating')
-        read_only_fields = ('pk', 'name', 'address', 'distance', 'location', 'avg_rating')
+        fields = ('pk', 'name', 'address', 'distance', 'location', 'avg_rating', 'working_hours')
+        read_only_fields = ('pk', 'name', 'address', 'distance', 'location', 'avg_rating', 'working_hours')
