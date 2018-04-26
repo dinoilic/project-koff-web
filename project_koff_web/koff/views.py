@@ -19,6 +19,7 @@ class CategoryList(mixins.ListModelMixin,
     """
     queryset = Category.objects.filter(parent__isnull=True)
     serializer_class = CategorySerializer
+    #pagination_class = None
 
 
 class CategoryDetail(mixins.RetrieveModelMixin,
@@ -31,7 +32,7 @@ class CategoryDetail(mixins.RetrieveModelMixin,
 
 
 class BusinessEntitiesPagination(PageNumberPagination):
-    page_size = 2
+    page_size = 5
     page_size_query_param = 'page_size'
     max_page_size = 1000
 
