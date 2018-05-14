@@ -50,3 +50,17 @@ class BusinessEntitySerializer(serializers.ModelSerializer):
 
         fields = ('pk', 'name', 'address', 'distance', 'location', 'avg_rating', 'working_hours')
         read_only_fields = ('pk', 'name', 'address', 'distance', 'location', 'avg_rating', 'working_hours')
+
+
+class BusinessEntityDetailSerializer(serializers.ModelSerializer):
+    location = LocationField()
+    working_hours = WorkingHoursSerializer(
+        source='workinghours_set',
+        many=True
+    )
+
+    class Meta:
+        model = BusinessEntity
+
+        fields = ('pk', 'name', 'address', 'location', 'working_hours', 'e_mail', 'web_site', 'telephone_references', 'social_references')
+        read_only_fields = ('pk', 'name', 'address', 'location', 'working_hours', 'e_mail', 'web_site', 'telephone_references', 'social_references')

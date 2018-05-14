@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from .models import Category, BusinessEntity
 from django.db.models import Avg
-from .serializers import CategorySerializer, BusinessEntitySerializer
+from .serializers import CategorySerializer, BusinessEntitySerializer, BusinessEntityDetailSerializer
 from datetime import datetime
 
 from django.contrib.gis.geos import Point
@@ -29,6 +29,15 @@ class CategoryDetail(mixins.RetrieveModelMixin,
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class BusinessEntityDetail(mixins.RetrieveModelMixin,
+                           viewsets.GenericViewSet):
+    """
+    Retrieves a category
+    """
+    queryset = BusinessEntity.objects.all()
+    serializer_class = BusinessEntityDetailSerializer
 
 
 class BusinessEntitiesPagination(PageNumberPagination):
