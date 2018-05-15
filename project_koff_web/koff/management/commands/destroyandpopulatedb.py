@@ -90,7 +90,13 @@ class Command(BaseCommand):
             address=current_address,
             location=GEOSGeometry('POINT(%f %f)' % (loc_coords['lat'], loc_coords['lng'])),
             e_mail=['toni@mail.hr', 'toni2@mail.hr'],
-            web_site=['toni.hr', 'toni2.hr']
+            web_site=['toni.hr', 'toni2.hr'],
+            description=
+            """Ja sam *TONI AUSPUH*, vodeći popravljač ~~auspuha~~ ispušnih cijevi. Popravljam sljedeće:
+- auspuhe
+- ispušne cijevi
+- vodiče otpadnih plinova iz automobila
+- može i skuter, a i podmornica ako ima auspuh"""
         )
         business.tags.add('auspuh', 'auto')
 
