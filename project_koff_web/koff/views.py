@@ -72,7 +72,7 @@ class BusinessEntities(generics.ListAPIView,
 
         is_working_time = int(self.request.query_params.get('is_working', None))
 
-        if(is_working_time == 0):
+        if(is_working_time == 1):
             print("Day name %s" % (datetime.now().strftime('%a')))
             print("Time %s" % (datetime.now().time()))
             queryset = queryset.filter( # return only those that are working now
