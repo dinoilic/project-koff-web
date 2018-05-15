@@ -181,7 +181,7 @@ class Command(BaseCommand):
         loc_coords = geocode_result[0]['geometry']['location']
 
         business = models.BusinessEntity.objects.create(
-            name="AUTOMEHANIČAR TIHOMIR VESIĆ",
+            name="AUTOMEHANIČAR TIHOMIR VESIĆ MLAĐI I SINOVI",
             address=current_address,
             location=GEOSGeometry('POINT(%f %f)' % (loc_coords['lat'], loc_coords['lng'])),
             e_mail=['tihomir@mail.hr'],
