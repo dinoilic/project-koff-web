@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Category, BusinessEntity, WorkingHours
 from rest_framework_recursive.fields import RecursiveField
+from .search_indexes import BusinessEntityIndex
+from drf_haystack.serializers import HaystackSerializer
 
 
 class DistanceField(serializers.Field):
@@ -64,3 +66,15 @@ class BusinessEntityDetailSerializer(serializers.ModelSerializer):
 
         fields = ('pk', 'name', 'address', 'location', 'working_hours', 'e_mail', 'web_site', 'telephone_references', 'social_references')
         read_only_fields = ('pk', 'name', 'address', 'location', 'working_hours', 'e_mail', 'web_site', 'telephone_references', 'social_references')
+
+
+class BusinessEntitySearchSerializer(HaystackSerializer):
+
+    class Meta:
+        model = BusinessEntity
+        index_classes = [
+            BusinessEntityIndex
+        ]
+
+        fields = ('id', 'name', 'description')
+        read_only_fields = ('id', 'name', 'description')

@@ -4,12 +4,14 @@ from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from .models import Category, BusinessEntity
 from django.db.models import Avg
-from .serializers import CategorySerializer, BusinessEntitySerializer, BusinessEntityDetailSerializer
+from .serializers import CategorySerializer, BusinessEntitySerializer, BusinessEntityDetailSerializer, BusinessEntitySearchSerializer
 from datetime import datetime
 
 from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.measure import D
+
+from drf_haystack.viewsets import HaystackViewSet
 
 
 class CategoryList(mixins.ListModelMixin,
@@ -105,3 +107,10 @@ class BusinessEntities(generics.ListAPIView,
 @api_view(['GET'])
 def validate_token(request):
     return Response({"detail": "Valid token."})
+
+class BusinessEntitySearchView(HaystackViewSet):
+    index_models = [
+        BusinessEntity
+    ]
+    serializer_class = BusinessEntitySearchSerializer
+    pagination_class = BusinessEntitiesPagination

@@ -6,13 +6,14 @@ from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from .users.views import UserViewSet, UserCreateViewSet
-from .koff.views import CategoryList, CategoryDetail, BusinessEntities, validate_token, BusinessEntityDetail
+from .koff.views import CategoryList, CategoryDetail, BusinessEntities, validate_token, BusinessEntityDetail, BusinessEntitySearchView
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'users', UserCreateViewSet)
 router.register(r'categories', CategoryList)
 router.register(r'categories', CategoryDetail)
+router.register(r'entities/search', BusinessEntitySearchView, 'EntitySearch')
 router.register(r'entities', BusinessEntities, 'Entities')
 router.register(r'entities', BusinessEntityDetail, 'Entities')
 
