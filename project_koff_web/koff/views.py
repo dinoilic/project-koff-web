@@ -2,9 +2,9 @@ from rest_framework import viewsets, mixins, generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
-from .models import Category, BusinessEntity
+from .models import Category, BusinessEntity, RatingAndComment
 from django.db.models import Avg
-from .serializers import CategorySerializer, BusinessEntitySerializer, BusinessEntityDetailSerializer, BusinessEntitySearchSerializer
+from .serializers import CategorySerializer, BusinessEntitySerializer, BusinessEntityDetailSerializer, BusinessEntitySearchSerializer, RatingAndCommentSerializer
 from datetime import datetime
 
 from django.contrib.gis.geos import Point
@@ -36,10 +36,35 @@ class CategoryDetail(mixins.RetrieveModelMixin,
 class BusinessEntityDetail(mixins.RetrieveModelMixin,
                            viewsets.GenericViewSet):
     """
-    Retrieves a category
+    Retrieves details of a BusinessEntity
     """
     queryset = BusinessEntity.objects.all()
     serializer_class = BusinessEntityDetailSerializer
+
+
+class RatingAndCommentPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
+
+
+class RatingsAndComments(generics.ListAPIView,
+                        viewsets.GenericViewSet):
+    """
+    Lists comments and ratings for a BusinessEntity
+    """
+
+    serializer_class = RatingAndCommentSerializer
+    pagination_class = RatingAndCommentPagination
+
+    def get_queryset(self):
+        businessentity_pk = self.request.query_params.get('entity', None)
+        queryset = RatingAndComment.objects.filter(
+            entity=businessentity_pk
+        )
+        print(queryset)
+        queryset.order_by('updated_at')
+        return queryset
 
 
 class BusinessEntitiesPagination(PageNumberPagination):

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, BusinessEntity, WorkingHours
+from .models import Category, BusinessEntity, WorkingHours, RatingAndComment
 from rest_framework_recursive.fields import RecursiveField
 from .search_indexes import BusinessEntityIndex
 from drf_haystack.serializers import HaystackSerializer
@@ -16,6 +16,10 @@ class LocationField(serializers.Field):
     def to_representation(self, obj):
         return (obj.x, obj.y)
 
+class UserDetailsField(serializers.Field):
+
+    def to_representation(self, obj):
+        return (obj.first_name, obj.last_name, obj.username)
 
 class CategorySerializer(serializers.ModelSerializer):
     children = serializers.ListField(
@@ -36,6 +40,16 @@ class WorkingHoursSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkingHours
         fields = ('name', 'start_time', 'end_time')
+
+
+class RatingAndCommentSerializer(serializers.ModelSerializer):
+    user = UserDetailsField()
+
+    class Meta:
+        model = RatingAndComment
+
+        fields = ('pk', 'user', 'rating', 'comment', 'created_at', 'updated_at')
+        read_only_fields = ('pk', 'user', 'rating', 'comment', 'created_at', 'updated_at')
 
 
 class BusinessEntitySerializer(serializers.ModelSerializer):

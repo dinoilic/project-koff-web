@@ -17,22 +17,22 @@ class Command(BaseCommand):
             models.Category.objects.exists() or \
             models.BusinessEntity.objects.exists() or \
             models.WorkingHours.objects.exists() or \
-            models.Rating.objects.exists():
+            models.RatingAndComment.objects.exists():
 
             User.objects.all().delete()
             models.TelephoneReference.objects.all().delete()
             models.Category.objects.all().delete()
             models.BusinessEntity.objects.all().delete()
             models.WorkingHours.objects.all().delete()
-            models.Rating.objects.all().delete()
+            models.RatingAndComment.objects.all().delete()
 
-        User.objects.create_superuser('superuser','admin@example.com','superuser')
-        User.objects.create_user(username='john', email='john@koff.com', password='john')
-        User.objects.create_user(username='andrew', email='andrew@koff.com', password='andrew')
-        User.objects.create_user(username='tim', email='tim@koff.com', password='tim')
-        User.objects.create_user(username='mark', email='mark@koff.com', password='mark')
-        User.objects.create_user(username='mile', email='mile@koff.com', password='mile')
-        User.objects.create_user(username='dino', email='dino@koff.com', password='dino')
+        User.objects.create_superuser(username='superuser',email='admin@example.com',password='superuser', first_name="Super", last_name="Mario")
+        User.objects.create_user(username='john', email='john@koff.com', password='john', first_name="Ivo", last_name="Čokolino")
+        User.objects.create_user(username='andrew', email='andrew@koff.com', password='andrew', first_name="Andrija", last_name="Mesarić")
+        User.objects.create_user(username='tim', email='tim@koff.com', password='tim', first_name="Tim", last_name="Evidentić")
+        User.objects.create_user(username='mark', email='mark@koff.com', password='mark', first_name="Marko", last_name="Veličanstveni")
+        User.objects.create_user(username='mile', email='mile@koff.com', password='mile', first_name="Mile", last_name="Miletić")
+        User.objects.create_user(username='dino', email='dino@koff.com', password='dino', first_name="Dino", last_name="Obersnel")
 
         models.TelephoneReference.objects.create(name="Tel")
         models.TelephoneReference.objects.create(name="Mob")
@@ -275,26 +275,28 @@ class Command(BaseCommand):
         models.WorkingHours.objects.create(name=models.WorkingHours.Fri, start_time=datetime.time(8, 0), end_time=datetime.time(21, 0), business_entity=businesses[1])
         models.WorkingHours.objects.create(name=models.WorkingHours.Sat, start_time=datetime.time(8, 0), end_time=datetime.time(13, 0), business_entity=businesses[1])
 
-
         users = User.objects.all()
 
-        models.Rating.objects.create(user=users[0], entity=businesses[0], rating=2)
-        models.Rating.objects.create(user=users[1], entity=businesses[0], rating=3)
-        models.Rating.objects.create(user=users[2], entity=businesses[0], rating=2)
-        models.Rating.objects.create(user=users[3], entity=businesses[0], rating=3)
+        models.RatingAndComment.objects.create(user=users[0], entity=businesses[0], rating=2, comment="Super biznis!")
+        models.RatingAndComment.objects.create(user=users[1], entity=businesses[0], rating=3, comment="Nije loše! Mada, moglo bi to i puno bolje.")
+        models.RatingAndComment.objects.create(user=users[2], entity=businesses[0], rating=2, comment="Očajna tvrtka, loša usluga. Dobio sam samo dva bombona iz zdjelice, a ne četiri kao kod Stipeta.")
+        models.RatingAndComment.objects.create(user=users[3], entity=businesses[0], rating=3)
 
-        models.Rating.objects.create(user=users[0], entity=businesses[1], rating=2)
-        models.Rating.objects.create(user=users[1], entity=businesses[1], rating=1)
-        models.Rating.objects.create(user=users[2], entity=businesses[1], rating=2)
-        models.Rating.objects.create(user=users[3], entity=businesses[1], rating=1)
+        models.RatingAndComment.objects.create(user=users[0], entity=businesses[1], rating=2)
+        models.RatingAndComment.objects.create(user=users[1], entity=businesses[1], rating=1)
+        models.RatingAndComment.objects.create(user=users[2], entity=businesses[1], rating=2)
+        models.RatingAndComment.objects.create(user=users[3], entity=businesses[1], rating=1)
 
-        models.Rating.objects.create(user=users[0], entity=businesses[2], rating=5)
-        models.Rating.objects.create(user=users[1], entity=businesses[2], rating=4)
-        models.Rating.objects.create(user=users[2], entity=businesses[2], rating=5)
-        models.Rating.objects.create(user=users[3], entity=businesses[2], rating=4)
+        models.RatingAndComment.objects.create(user=users[0], entity=businesses[2], rating=5)
+        models.RatingAndComment.objects.create(user=users[1], entity=businesses[2], rating=4)
+        models.RatingAndComment.objects.create(user=users[2], entity=businesses[2], rating=5)
+        models.RatingAndComment.objects.create(user=users[3], entity=businesses[2], rating=4)
 
-        models.Rating.objects.create(user=users[0], entity=businesses[3], rating=1)
-        models.Rating.objects.create(user=users[1], entity=businesses[3], rating=2)
-        models.Rating.objects.create(user=users[2], entity=businesses[3], rating=3)
-        models.Rating.objects.create(user=users[3], entity=businesses[3], rating=4)
-        #models.Comment.objects.create(user=users[0], entity=businesses[0], comment="Super biznis!")
+        models.RatingAndComment.objects.create(user=users[0], entity=businesses[3], rating=1)
+        models.RatingAndComment.objects.create(user=users[1], entity=businesses[3], rating=2)
+        models.RatingAndComment.objects.create(user=users[2], entity=businesses[3], rating=3)
+        models.RatingAndComment.objects.create(user=users[3], entity=businesses[3], rating=4)
+        
+
+        
+        

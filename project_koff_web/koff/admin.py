@@ -38,15 +38,9 @@ class WorkingHoursAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
-class RatingAdmin(admin.ModelAdmin):
+class RatingAndCommentAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'user', 'entity', 'rating')
-    list_filter = ('user', 'entity')
-
-
-class CommentAdmin(admin.ModelAdmin):
-
-    list_display = ('id', 'user', 'entity', 'comment')
     list_filter = ('user', 'entity')
 
 
@@ -82,8 +76,7 @@ _register(models.Category, CategoryAdmin)
 _register(models.BusinessEntity, BusinessEntityAdmin)
 _register(models.EntityCategories, EntityCategoriesAdmin)
 _register(models.WorkingHours, WorkingHoursAdmin)
-_register(models.Rating, RatingAdmin)
-_register(models.Comment, CommentAdmin)
+_register(models.RatingAndComment, RatingAndCommentAdmin)
 _register(models.TelephoneReference, TelephoneReferenceAdmin)
 _register(models.SocialReference, SocialReferenceAdmin)
 _register(models.EntityTelephoneReference, EntityTelephoneReferenceAdmin)

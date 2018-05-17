@@ -177,7 +177,7 @@ class WorkingHours(models.Model):
 
 
 @python_2_unicode_compatible
-class Rating(models.Model):
+class RatingAndComment(models.Model):
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -198,25 +198,14 @@ class Rating(models.Model):
     )
 
     rating = models.IntegerField(default=5, choices=RATINGS)
-
-
-@python_2_unicode_compatible
-class Comment(models.Model):
-
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
-    )
-
-    entity = models.ForeignKey(
-        'BusinessEntity',
-        on_delete=models.CASCADE
-    )
-
     comment = models.CharField(
-        max_length=50,
+        max_length=500,
+        blank=True,
         verbose_name=_('Comment for the entity'),
     )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 # All references
 
