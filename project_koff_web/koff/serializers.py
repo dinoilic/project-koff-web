@@ -44,6 +44,8 @@ class WorkingHoursSerializer(serializers.ModelSerializer):
 
 class RatingAndCommentSerializer(serializers.ModelSerializer):
     user = UserDetailsField()
+    created_at = serializers.DateTimeField(format="%d/%m/%y")
+    updated_at = serializers.DateTimeField(format="%d/%m/%y")
 
     class Meta:
         model = RatingAndComment

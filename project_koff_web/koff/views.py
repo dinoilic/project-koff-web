@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from .models import Category, BusinessEntity, RatingAndComment
-from django.db.models import Avg
+from django.db.models import Avg, Q, Case, Count, When, IntegerField, Value
 from .serializers import CategorySerializer, BusinessEntitySerializer, BusinessEntityDetailSerializer, BusinessEntitySearchSerializer, RatingAndCommentSerializer
 from datetime import datetime
 
@@ -12,6 +12,8 @@ from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.measure import D
 
 from drf_haystack.viewsets import HaystackViewSet
+
+from itertools import chain
 
 
 class CategoryList(mixins.ListModelMixin,
@@ -59,12 +61,16 @@ class RatingsAndComments(generics.ListAPIView,
 
     def get_queryset(self):
         businessentity_pk = self.request.query_params.get('entity', None)
-        queryset = RatingAndComment.objects.filter(
+        user_queryset = RatingAndComment.objects.filter(
+            user=self.request.user,
             entity=businessentity_pk
-        )
-        print(queryset)
-        queryset.order_by('updated_at')
-        return queryset
+        ).annotate(weight=Value(0, IntegerField()))
+        queryset = RatingAndComment.objects.filter(
+            ~Q(user=self.request.user),
+            entity=businessentity_pk
+        ).annotate(weight=Value(1, IntegerField()))
+        total_qs = user_queryset.union(queryset).order_by('weight', 'updated_at')
+        return total_qs
 
 
 class BusinessEntitiesPagination(PageNumberPagination):
