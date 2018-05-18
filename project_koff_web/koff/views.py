@@ -119,7 +119,7 @@ class BusinessEntities(generics.ListAPIView,
         queryset = queryset.annotate(distance=dist)
 
         # Get average rating for every BusinessEntity
-        queryset = queryset.annotate(avg_rating=Avg('rating__rating'))
+        queryset = queryset.annotate(avg_rating=Avg('ratingandcomment__rating'))
 
         if(sort_mode == 'distance' or sort_mode is None):
             queryset = queryset.order_by('distance')
