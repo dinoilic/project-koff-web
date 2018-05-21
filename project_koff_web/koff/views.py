@@ -139,6 +139,33 @@ class BusinessEntities(generics.ListAPIView,
 def validate_token(request):
     return Response({"detail": "Valid token."})
 
+@api_view(['GET'])
+def get_user_pk(request):
+    return Response({"user_pk": request.user.pk})
+
+@api_view(['GET'])
+def get_user_comment_and_rating(request):
+    businessentity_pk = request.query_params.get('entity', None)
+    queryset = RatingAndComment.objects.filter(
+        user=request.user,
+        entity=businessentity_pk
+    )
+    if(queryset.exists()):
+        result = queryset[0]
+        return Response(
+            {
+                "user_rating": result.rating,
+                "user_comment": result.comment
+            }
+        )
+    else:
+        return Response(
+            {
+                "user_rating": -1,
+                "user_comment": ""
+            }
+        )
+
 class BusinessEntitySearchView(HaystackViewSet):
     index_models = [
         BusinessEntity

@@ -19,7 +19,7 @@ class LocationField(serializers.Field):
 class UserDetailsField(serializers.Field):
 
     def to_representation(self, obj):
-        return (obj.first_name, obj.last_name, obj.username)
+        return (obj.first_name, obj.last_name, obj.username, obj.pk)
 
 class CategorySerializer(serializers.ModelSerializer):
     children = serializers.ListField(

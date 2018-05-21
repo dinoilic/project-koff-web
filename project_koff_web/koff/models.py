@@ -197,7 +197,7 @@ class RatingAndComment(models.Model):
         (5, 'Very High'),
     )
 
-    rating = models.IntegerField(default=5, choices=RATINGS)
+    rating = models.IntegerField(default=5, blank=True, choices=RATINGS)
     comment = models.CharField(
         max_length=500,
         blank=True,
