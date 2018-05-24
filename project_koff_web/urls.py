@@ -6,7 +6,8 @@ from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from .users.views import UserViewSet, UserCreateViewSet
-from .koff.views import CategoryList, CategoryDetail, BusinessEntities, validate_token, get_user_pk, get_user_comment_and_rating, BusinessEntityDetail, BusinessEntitySearchView, RatingsAndComments
+from .koff.views import CategoryList, CategoryDetail, BusinessEntities, validate_token, get_user_pk, get_user_comment_and_rating, \
+BusinessEntityDetail, BusinessEntitySearchView, RatingsAndComments, RatingsAndCommentsList, RatingsAndCommentsDetail
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -24,6 +25,8 @@ urlpatterns = [
     path('api/v1/token-validation/', validate_token),
     path('api/v1/get-user-pk/', get_user_pk),
     path('api/v1/get-user-comment-and-rating/', get_user_comment_and_rating),
+    path('api/v1/ratings-and-comments-list/', RatingsAndCommentsList.as_view()),
+    path('api/v1/ratings-and-comments/<int:pk>/', RatingsAndCommentsDetail.as_view()),
     path('api-token-auth/', views.obtain_auth_token),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 

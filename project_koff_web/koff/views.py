@@ -1,10 +1,11 @@
-from rest_framework import viewsets, mixins, generics
+from rest_framework import viewsets, mixins, generics, status
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from .models import Category, BusinessEntity, RatingAndComment
 from django.db.models import Avg, Q, Case, Count, When, IntegerField, Value
-from .serializers import CategorySerializer, BusinessEntitySerializer, BusinessEntityDetailSerializer, BusinessEntitySearchSerializer, RatingAndCommentSerializer
+from .serializers import CategorySerializer, BusinessEntitySerializer, BusinessEntityDetailSerializer, BusinessEntitySearchSerializer, RatingAndCommentSerializer, RatingAndCommentPostSerializer
 from datetime import datetime
 
 from django.contrib.gis.geos import Point
@@ -71,6 +72,16 @@ class RatingsAndComments(generics.ListAPIView,
         ).annotate(weight=Value(1, IntegerField()))
         total_qs = user_queryset.union(queryset).order_by('weight', 'updated_at')
         return total_qs
+
+
+class RatingsAndCommentsList(generics.ListCreateAPIView):
+    queryset = RatingAndComment.objects.all()
+    serializer_class = RatingAndCommentPostSerializer
+
+
+class RatingsAndCommentsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = RatingAndComment.objects.all()
+    serializer_class = RatingAndCommentSerializer
 
 
 class BusinessEntitiesPagination(PageNumberPagination):
@@ -154,6 +165,7 @@ def get_user_comment_and_rating(request):
         result = queryset[0]
         return Response(
             {
+                "pk": result.pk,
                 "user_rating": result.rating,
                 "user_comment": result.comment
             }
@@ -161,6 +173,7 @@ def get_user_comment_and_rating(request):
     else:
         return Response(
             {
+                "pk": -1,
                 "user_rating": -1,
                 "user_comment": ""
             }

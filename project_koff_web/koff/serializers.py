@@ -49,9 +49,15 @@ class RatingAndCommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RatingAndComment
-
         fields = ('pk', 'user', 'rating', 'comment', 'created_at', 'updated_at')
-        read_only_fields = ('pk', 'user', 'rating', 'comment', 'created_at', 'updated_at')
+
+
+class RatingAndCommentPostSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = RatingAndComment
+        fields = ('pk', 'user', 'entity', 'rating', 'comment', 'created_at', 'updated_at')
 
 
 class BusinessEntitySerializer(serializers.ModelSerializer):
