@@ -13,8 +13,8 @@ from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.measure import D
 
 from drf_haystack.viewsets import HaystackViewSet
-
 from itertools import chain
+from rest_framework.decorators import detail_route, list_route
 
 
 class CategoryList(mixins.ListModelMixin,
@@ -102,17 +102,34 @@ class BusinessEntities(generics.ListAPIView,
         sort_mode = self.request.query_params.get('sort', None)
         subcategory_pk = self.request.query_params.get('subcategory', None)
         location = self.request.query_params.get('location', None).split(',')
+        try:
+            ids = self.request.query_params.get('ids', None).split(',')
+        except AttributeError:
+            ids = []
+
         lat = float(location[0])
         lon = float(location[1])
         radius = float(self.request.query_params.get('radius', None))
-        queryset = BusinessEntity.objects.filter(
-            active=True,
-            categories__in=[int(subcategory_pk)],
-            location__distance_lte=(
-                Point(lat, lon),
-                D(km=radius)
+
+        if ids:
+            queryset = BusinessEntity.objects.filter(
+                active=True,
+                id__in=ids,
+                categories__in=[int(subcategory_pk)],
+                location__distance_lte=(
+                    Point(lat, lon),
+                    D(km=radius)
+                )
             )
-        )
+        else:
+            queryset = BusinessEntity.objects.filter(
+                active=True,
+                categories__in=[int(subcategory_pk)],
+                location__distance_lte=(
+                    Point(lat, lon),
+                    D(km=radius)
+                )
+            )
 
         is_working_time = int(self.request.query_params.get('is_working', None))
 
@@ -185,3 +202,8 @@ class BusinessEntitySearchView(HaystackViewSet):
     ]
     serializer_class = BusinessEntitySearchSerializer
     pagination_class = BusinessEntitiesPagination
+
+    @list_route()
+    def id_list(self, request):
+        q = self.get_queryset().values('id')
+        return Response(list(q))
