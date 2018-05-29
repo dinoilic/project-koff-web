@@ -201,9 +201,3 @@ class BusinessEntitySearchView(HaystackViewSet):
         BusinessEntity
     ]
     serializer_class = BusinessEntitySearchSerializer
-    pagination_class = BusinessEntitiesPagination
-
-    @list_route()
-    def id_list(self, request):
-        q = self.get_queryset().values('id')
-        return Response(list(q))
