@@ -111,25 +111,19 @@ class BusinessEntities(generics.ListAPIView,
         lon = float(location[1])
         radius = float(self.request.query_params.get('radius', None))
 
+        queryset = BusinessEntity.objects.filter(
+            active=True,
+            location__distance_lte=(
+                Point(lat, lon),
+                D(km=radius)
+            )
+        )
+
         if ids:
-            queryset = BusinessEntity.objects.filter(
-                active=True,
-                id__in=ids,
-                categories__in=[int(subcategory_pk)],
-                location__distance_lte=(
-                    Point(lat, lon),
-                    D(km=radius)
-                )
-            )
-        else:
-            queryset = BusinessEntity.objects.filter(
-                active=True,
-                categories__in=[int(subcategory_pk)],
-                location__distance_lte=(
-                    Point(lat, lon),
-                    D(km=radius)
-                )
-            )
+            queryset = queryset.filter(id__in=ids)
+
+        if subcategory_pk:
+            queryset = queryset.filter(categories__in=[int(subcategory_pk)])
 
         is_working_time = int(self.request.query_params.get('is_working', None))
 
