@@ -135,6 +135,30 @@ Mi smo jednostavno **bolji** d.o.o.""",
         {'name': 'Alarmni sustavi, video nadzor', 'image': 'category_images/icons8-bullet-camera-96.png', 'businesses': [
         ]},
         {'name': 'Boje i lakovi', 'image': 'category_images/icons8-paint-bucket-96.png', 'businesses': [
+            {
+                'name': 'Boje i lakovi, voze li vlakovi?',
+                'address': 'Mihanovićeva ul. 35, 51000, Rijeka',
+                'e_mail': ['mirko@mail.hr', 'marko@mail.hr'],
+                'web_site': ['bojeilakovi.hr'],
+                'telephone_numbers': [],
+                'description': """Volim farbu, volim lak, kada vidim lošu farbu diže mi se tlak.""",
+                'tags': ['auspuh', 'auto'],
+                'working_hours': [
+
+                ]
+            },
+            {
+                'name': 'Jupol u srcu mom',
+                'address': 'Mihanovićeva ul. 5, 51000, Rijeka',
+                'e_mail': ['zeljko@jupol.hr'],
+                'web_site': ['jupol.hr'],
+                'telephone_numbers': [],
+                'description': """""",
+                'tags': ['auspuh', 'auto'],
+                'working_hours': [
+
+                ]
+            }
         ]},
         {'name': 'Čišćenje dimnjaka', 'image': 'category_images/icons8-roofing-96.png', 'businesses': [
         ]},
