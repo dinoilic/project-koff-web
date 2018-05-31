@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from .models import Category, BusinessEntity, RatingAndComment
 from django.db.models import Avg, Q, Case, Count, When, IntegerField, Value
+from django.db.models.functions import Coalesce
 from .serializers import CategorySerializer, BusinessEntitySerializer, BusinessEntityDetailSerializer, BusinessEntitySearchSerializer, RatingAndCommentSerializer, RatingAndCommentPostSerializer
 from datetime import datetime
 
@@ -141,7 +142,7 @@ class BusinessEntities(generics.ListAPIView,
         queryset = queryset.annotate(distance=dist)
 
         # Get average rating for every BusinessEntity
-        queryset = queryset.annotate(avg_rating=Avg('ratingandcomment__rating'))
+        queryset = queryset.annotate(avg_rating=Coalesce(Avg('ratingandcomment__rating'), 0))
 
         if(sort_mode == 'distance' or sort_mode is None):
             queryset = queryset.order_by('distance')
