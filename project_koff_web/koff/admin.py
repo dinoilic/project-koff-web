@@ -13,9 +13,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class BusinessEntityAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'name', 'active', 'address', 'location', 'e_mail', 'web_site')
+    list_display = ('id', 'name', 'active', 'address', 'location', 'e_mail', 'web_site', 'telephone_numbers',)
     list_filter = ('active',)
-    raw_id_fields = ('telephone_references', 'social_references', 'tags', 'categories',)
+    raw_id_fields = ('social_references', 'tags', 'categories',)
     search_fields = ('name',)
 
 
@@ -44,22 +44,10 @@ class RatingAndCommentAdmin(admin.ModelAdmin):
     list_filter = ('user', 'entity')
 
 
-class TelephoneReferenceAdmin(admin.ModelAdmin):
-
-    list_display = ('id', 'name')
-    search_fields = ('name',)
-
-
 class SocialReferenceAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'name')
     search_fields = ('name',)
-
-
-class EntityTelephoneReferenceAdmin(admin.ModelAdmin):
-
-    list_display = ('id', 'reference', 'entity', 'number')
-    list_filter = ('reference', 'entity')
 
 
 class EntitySocialReferenceAdmin(admin.ModelAdmin):
@@ -77,7 +65,5 @@ _register(models.BusinessEntity, BusinessEntityAdmin)
 _register(models.EntityCategories, EntityCategoriesAdmin)
 _register(models.WorkingHours, WorkingHoursAdmin)
 _register(models.RatingAndComment, RatingAndCommentAdmin)
-_register(models.TelephoneReference, TelephoneReferenceAdmin)
 _register(models.SocialReference, SocialReferenceAdmin)
-_register(models.EntityTelephoneReference, EntityTelephoneReferenceAdmin)
 _register(models.EntitySocialReference, EntitySocialReferenceAdmin)

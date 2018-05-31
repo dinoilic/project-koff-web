@@ -15,14 +15,12 @@ class Command(BaseCommand):
         translation.activate('hr')
         User = get_user_model()
         if User.objects.exists() or \
-            models.TelephoneReference.objects.exists() or \
             models.Category.objects.exists() or \
             models.BusinessEntity.objects.exists() or \
             models.WorkingHours.objects.exists() or \
             models.RatingAndComment.objects.exists():
 
             User.objects.all().delete()
-            models.TelephoneReference.objects.all().delete()
             models.Category.objects.all().delete()
             models.BusinessEntity.objects.all().delete()
             models.WorkingHours.objects.all().delete()
@@ -35,10 +33,6 @@ class Command(BaseCommand):
         User.objects.create_user(username='mark', email='mark@koff.com', password='mark', first_name="Marko", last_name="Veličanstveni")
         User.objects.create_user(username='mile', email='mile@koff.com', password='mile', first_name="Mile", last_name="Miletić")
         User.objects.create_user(username='dino', email='dino@koff.com', password='dino', first_name="Dino", last_name="Obersnel")
-
-        models.TelephoneReference.objects.create(name="Tel")
-        models.TelephoneReference.objects.create(name="Mob")
-        models.TelephoneReference.objects.create(name="Fax")
 
         models.Category.objects.create(name="Auto moto i nautika", image="category_images/auspuh.gif")
         models.Category.objects.create(name="Gradnja")
@@ -93,6 +87,7 @@ class Command(BaseCommand):
             location=GEOSGeometry('POINT(%f %f)' % (loc_coords['lat'], loc_coords['lng'])),
             e_mail=['toni@mail.hr', 'toni2@mail.hr'],
             web_site=['toni.hr', 'toni2.hr'],
+            telephone_numbers=['0913319384', '051882123'],
             description=
             """Ja sam *TONI AUSPUH*, vodeći popravljač ~~auspuha~~ ispušnih cijevi. Popravljam sljedeće:
 - auspuhe

@@ -86,8 +86,8 @@ class BusinessEntityDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = BusinessEntity
 
-        fields = ('pk', 'name', 'address', 'location', 'description', 'working_hours', 'e_mail', 'web_site', 'telephone_references', 'social_references', 'rating')
-        read_only_fields = ('pk', 'name', 'address', 'location', 'description', 'working_hours', 'e_mail', 'web_site', 'telephone_references', 'social_references', 'rating')
+        fields = ('pk', 'name', 'address', 'location', 'description', 'working_hours', 'e_mail', 'web_site', 'telephone_numbers', 'social_references', 'rating')
+        read_only_fields = ('pk', 'name', 'address', 'location', 'description', 'working_hours', 'e_mail', 'web_site', 'telephone_numbers', 'social_references', 'rating')
 
 
 class BusinessEntitySearchSerializer(HaystackSerializer):

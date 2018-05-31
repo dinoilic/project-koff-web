@@ -87,16 +87,21 @@ class BusinessEntity(models.Model):
     )
 
     e_mail = ArrayField(
-            models.EmailField(max_length=50, blank=True),
+        models.EmailField(max_length=50),
+        null=True,
+        blank=True
     )
 
     web_site = ArrayField(
-            models.URLField(max_length=200, blank=True),
+        models.URLField(max_length=200),
+        null=True,
+        blank=True
     )
 
-    telephone_references = models.ManyToManyField(
-        'TelephoneReference',
-        through='EntityTelephoneReference',
+    telephone_numbers = ArrayField(
+        models.CharField(max_length=50),
+        null=True,
+        blank=True
     )
 
     social_references = models.ManyToManyField(
@@ -219,16 +224,6 @@ class RatingAndComment(models.Model):
 # All references
 
 
-class TelephoneReference(models.Model):
-
-    name = models.CharField(
-        max_length=10
-    )
-
-    def __str__(self):
-        return self.name
-
-
 class SocialReference(models.Model):
 
     name = models.CharField(
@@ -237,25 +232,6 @@ class SocialReference(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class EntityTelephoneReference(models.Model):
-
-    reference = models.ForeignKey(
-        'TelephoneReference',
-        on_delete=models.CASCADE
-    )
-    entity = models.ForeignKey(
-        'BusinessEntity',
-        on_delete=models.CASCADE
-    )
-    # mozda dodati validator da je broj zapravo
-    number = models.CharField(
-        max_length=20
-    )
-
-    def __unicode__(self):
-        return u"%s - %s" % (self.member, self.reference)
 
 
 class EntitySocialReference(models.Model):
