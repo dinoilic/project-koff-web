@@ -6,6 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.geos import Point
+from django.db.models import Avg
 
 from taggit.managers import TaggableManager
 
@@ -110,6 +111,14 @@ class BusinessEntity(models.Model):
 
     tags = TaggableManager()
 
+    @property
+    def rating(self):
+        rating = self.ratingandcomment_set.aggregate(Avg('rating'))['rating__avg']
+        if rating is None:
+            return 0.0
+        else:
+            return rating
+
     class Meta:
         verbose_name = _('Business Entity')
         verbose_name_plural = _('Business Entities')
@@ -134,23 +143,23 @@ class EntityCategories(models.Model):
 @python_2_unicode_compatible
 class WorkingHours(models.Model):
 
-    Mon = 'Mon'
-    Tue = 'Tue'
-    Wed = 'Wed'
-    Thu = 'Thu'
-    Fri = 'Fri'
-    Sat = 'Sat'
-    Sun = 'Sun'
+    Mon = _('Mon')
+    Tue = _('Tue')
+    Wed = _('Wed')
+    Thu = _('Thu')
+    Fri = _('Fri')
+    Sat = _('Sat')
+    Sun = _('Sun')
 
     # ne zaboraviti da može i ne raditi određeni dan
     DAYS = (
-        (Mon, 'Monday'),
-        (Tue, 'Tuesday'),
-        (Wed, 'Wednesday'),
-        (Thu, 'Thursday'),
-        (Fri, 'Friday'),
-        (Sat, 'Saturday'),
-        (Sun, 'Sunday'),
+        (Mon, _('Monday')),
+        (Tue, _('Tuesday')),
+        (Wed, _('Wednesday')),
+        (Thu, _('Thursday')),
+        (Fri, _('Friday')),
+        (Sat, _('Saturday')),
+        (Sun, _('Sunday')),
     )
 
     name = models.CharField(

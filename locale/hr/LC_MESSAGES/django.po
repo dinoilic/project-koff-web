@@ -1,0 +1,144 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-31 16:05+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: project_koff_web/koff/models.py:19
+msgid "Category name"
+msgstr "Naziv kategorije"
+
+#: project_koff_web/koff/models.py:20
+msgid "This field is used for naming the category."
+msgstr ""
+
+#: project_koff_web/koff/models.py:25
+msgid "Icon name"
+msgstr ""
+
+#: project_koff_web/koff/models.py:26
+msgid "This field is used for picking the icon in app."
+msgstr ""
+
+#: project_koff_web/koff/models.py:47
+msgid "Category"
+msgstr ""
+
+#: project_koff_web/koff/models.py:48
+msgid "Categories"
+msgstr ""
+
+#: project_koff_web/koff/models.py:60
+msgid "Business Entity name"
+msgstr ""
+
+#: project_koff_web/koff/models.py:61
+msgid "This field is used for naming the business entity."
+msgstr ""
+
+#: project_koff_web/koff/models.py:65
+msgid "Active"
+msgstr ""
+
+#: project_koff_web/koff/models.py:66
+msgid "This field is used to determine if a business entity is active."
+msgstr ""
+
+#: project_koff_web/koff/models.py:73
+msgid "Business Entity address"
+msgstr ""
+
+#: project_koff_web/koff/models.py:123
+msgid "Business Entity"
+msgstr ""
+
+#: project_koff_web/koff/models.py:124
+msgid "Business Entities"
+msgstr ""
+
+#: project_koff_web/koff/models.py:146
+msgid "Mon"
+msgstr "Pon"
+
+#: project_koff_web/koff/models.py:147
+msgid "Tue"
+msgstr "Uto"
+
+#: project_koff_web/koff/models.py:148
+msgid "Wed"
+msgstr "Sri"
+
+#: project_koff_web/koff/models.py:149
+msgid "Thu"
+msgstr "Čet"
+
+#: project_koff_web/koff/models.py:150
+msgid "Fri"
+msgstr "Pet"
+
+#: project_koff_web/koff/models.py:151
+msgid "Sat"
+msgstr "Sub"
+
+#: project_koff_web/koff/models.py:152
+msgid "Sun"
+msgstr "Ned"
+
+#: project_koff_web/koff/models.py:156
+msgid "Monday"
+msgstr "Ponedjeljak"
+
+#: project_koff_web/koff/models.py:157
+msgid "Tuesday"
+msgstr "Utorak"
+
+#: project_koff_web/koff/models.py:158
+msgid "Wednesday"
+msgstr "Srijed"
+
+#: project_koff_web/koff/models.py:159
+msgid "Thursday"
+msgstr "Četvrtak"
+
+#: project_koff_web/koff/models.py:160
+msgid "Friday"
+msgstr "Petak"
+
+#: project_koff_web/koff/models.py:161
+msgid "Saturday"
+msgstr "Subota"
+
+#: project_koff_web/koff/models.py:162
+msgid "Sunday"
+msgstr "Nedjelja"
+
+#: project_koff_web/koff/models.py:167
+msgid "Short day name"
+msgstr ""
+
+#: project_koff_web/koff/models.py:168
+msgid "This field is used for short naming the day of the week."
+msgstr ""
+
+#: project_koff_web/koff/models.py:181 project_koff_web/koff/models.py:182
+msgid "Working hours"
+msgstr ""
+
+#: project_koff_web/koff/models.py:213
+msgid "Comment for the entity"
+msgstr ""

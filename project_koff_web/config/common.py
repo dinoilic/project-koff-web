@@ -3,6 +3,7 @@ from os.path import join
 from distutils.util import strtobool
 import dj_database_url
 from configurations import Configuration
+from django.utils.translation import ugettext_lazy as _
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -66,10 +67,17 @@ class Common(Configuration):
     # General
     APPEND_SLASH = False
     TIME_ZONE = 'Europe/Zagreb'
-    LANGUAGE_CODE = 'en-us'
+    LANGUAGES = [
+        ('hr', _('Croatian')),
+        ('en', _('English')),
+    ]
+    LANGUAGE_CODE = 'hr'
     # If you set this to False, Django will make some optimizations so as not
     # to load the internationalization machinery.
-    USE_I18N = False
+    USE_I18N = True
+    LOCALE_PATHS = [
+        join(os.path.dirname(BASE_DIR), 'locale')
+    ]
     USE_L10N = True
     USE_TZ = True
     LOGIN_REDIRECT_URL = '/'

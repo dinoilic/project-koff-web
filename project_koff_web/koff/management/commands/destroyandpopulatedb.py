@@ -5,12 +5,14 @@ import datetime
 
 import googlemaps  # used for geocoding
 from django.contrib.gis.geos import GEOSGeometry
+from django.utils import translation
 
 
 class Command(BaseCommand):
     help = 'Removes old data and populates database with new test data'
 
     def handle(self, *args, **options):
+        translation.activate('hr')
         User = get_user_model()
         if User.objects.exists() or \
             models.TelephoneReference.objects.exists() or \
