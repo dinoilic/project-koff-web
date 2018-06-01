@@ -6,7 +6,7 @@ from rest_framework.pagination import PageNumberPagination
 from .models import Category, BusinessEntity, RatingAndComment
 from django.db.models import Avg, Q, Case, Count, When, IntegerField, Value
 from django.db.models.functions import Coalesce
-from .serializers import CategorySerializer, BusinessEntitySerializer, BusinessEntityDetailSerializer, BusinessEntitySearchSerializer, RatingAndCommentSerializer, RatingAndCommentPostSerializer
+from .serializers import CategorySerializer, BusinessEntitySerializer, BusinessEntityDetailSerializer, BusinessEntitySearchSerializer, RatingAndCommentSerializer, RatingAndCommentPostSerializer, TokenSerializer
 from datetime import datetime
 
 from django.contrib.gis.geos import Point
@@ -16,6 +16,8 @@ from django.contrib.gis.measure import D
 from drf_haystack.viewsets import HaystackViewSet
 from itertools import chain
 from rest_framework.decorators import detail_route, list_route
+
+from rest_framework.authtoken.models import Token
 
 
 class CategoryList(mixins.ListModelMixin,
@@ -35,6 +37,15 @@ class CategoryDetail(mixins.RetrieveModelMixin,
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class TokenDetail(mixins.RetrieveModelMixin,
+                     viewsets.GenericViewSet):
+    """
+    Retrieves a category
+    """
+    queryset = Token.objects.all()
+    serializer_class = TokenSerializer
 
 
 class BusinessEntityDetail(mixins.RetrieveModelMixin,

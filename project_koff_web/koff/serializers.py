@@ -3,6 +3,8 @@ from .models import Category, BusinessEntity, WorkingHours, RatingAndComment
 from rest_framework_recursive.fields import RecursiveField
 from .search_indexes import BusinessEntityIndex
 from drf_haystack.serializers import HaystackSerializer
+from rest_framework.authtoken.models import Token
+from project_koff_web.users.serializers import UserSerializer
 
 
 class DistanceField(serializers.Field):
@@ -40,6 +42,13 @@ class WorkingHoursSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkingHours
         fields = ('name', 'start_time', 'end_time')
+
+
+class TokenSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        model = Token
+        fields = ('key', 'user')
 
 
 class RatingAndCommentSerializer(serializers.ModelSerializer):
