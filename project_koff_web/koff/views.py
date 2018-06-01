@@ -19,6 +19,9 @@ from rest_framework.decorators import detail_route, list_route
 
 from rest_framework.authtoken.models import Token
 
+import operator
+import googlemaps 
+
 
 class CategoryList(mixins.ListModelMixin,
                    viewsets.GenericViewSet):
@@ -159,15 +162,16 @@ class BusinessEntities(generics.ListAPIView,
             )
 
         # Get distance from provided location to BusinessEntity location
+        gmaps = googlemaps.Client(
+            key=***REMOVED***
+        )
         dist = Distance('location', Point(lat, lon, srid=4326))
         queryset = queryset.annotate(distance=dist)
 
         # Get average rating for every BusinessEntity
         queryset = queryset.annotate(avg_rating=Coalesce(Avg('ratingandcomment__rating'), 0))
 
-        if(sort_mode == 'distance' or sort_mode is None):
-            queryset = queryset.order_by('distance')
-        elif (sort_mode == 'rating_asc'):
+        if (sort_mode == 'rating_asc'):
             queryset = queryset.order_by('avg_rating')
         elif (sort_mode == 'rating_desc'):
             queryset = queryset.order_by('-avg_rating')
@@ -175,6 +179,14 @@ class BusinessEntities(generics.ListAPIView,
             queryset = queryset.order_by('name')
         elif (sort_mode == 'z_a'):
             queryset = queryset.order_by('-name')
+
+        for item in queryset:
+            distance_matrix = gmaps.distance_matrix(origins=(lat, lon), destinations=(item.location.x,item.location.y))
+            res = distance_matrix['rows'][0]['elements'][0]['distance']['value']
+            item.distance.m = res
+
+        if(sort_mode == 'distance' or sort_mode is None):
+            queryset = sorted(queryset, key=operator.attrgetter('distance.m'))
 
         return queryset
 
