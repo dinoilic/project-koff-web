@@ -17,11 +17,11 @@ CATEGORIES_AND_BUSINESSES = [
 - može i skuter, a i podmornica ako ima auspuh""",
                 'tags': ['auspuh', 'auto'],
                 'working_hours': [
-                    {'name': models.WorkingHours.Mon, 'start_time': datetime.time(8, 0), 'end_time': datetime.time(20, 0)},
-                    {'name': models.WorkingHours.Tue, 'start_time': datetime.time(8, 0), 'end_time': datetime.time(20, 0)},
-                    {'name': models.WorkingHours.Wed, 'start_time': datetime.time(8, 0), 'end_time': datetime.time(20, 0)},
-                    {'name': models.WorkingHours.Thu, 'start_time': datetime.time(8, 0), 'end_time': datetime.time(20, 0)},
-                    {'name': models.WorkingHours.Fri, 'start_time': datetime.time(8, 0), 'end_time': datetime.time(20, 0)},
+                    {'name': models.WorkingHours.Mon, 'start_time': datetime.time(8, 0), 'end_time': datetime.time(22, 0)},
+                    {'name': models.WorkingHours.Tue, 'start_time': datetime.time(8, 0), 'end_time': datetime.time(22, 0)},
+                    {'name': models.WorkingHours.Wed, 'start_time': datetime.time(8, 0), 'end_time': datetime.time(22, 0)},
+                    {'name': models.WorkingHours.Thu, 'start_time': datetime.time(8, 0), 'end_time': datetime.time(22, 0)},
+                    {'name': models.WorkingHours.Fri, 'start_time': datetime.time(8, 0), 'end_time': datetime.time(22, 0)},
                     {'name': models.WorkingHours.Sat, 'start_time': datetime.time(8, 0), 'end_time': datetime.time(13, 0)},
                 ]
             },

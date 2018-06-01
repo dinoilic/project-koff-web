@@ -139,11 +139,21 @@ class BusinessEntities(generics.ListAPIView,
 
         is_working_time = int(self.request.query_params.get('is_working', None))
 
+        days_eng_to_hr = {
+            'Mon': 'Pon',
+            'Tue': 'Uto',
+            'Wed': 'Sri',
+            'Thu': 'Čet',
+            'Fri': 'Pet',
+            'Sat': 'Sub',
+            'Sun': 'Ned',
+        }
+
         if(is_working_time == 1):
             print("Day name %s" % (datetime.now().strftime('%a')))
             print("Time %s" % (datetime.now().time()))
             queryset = queryset.filter( # return only those that are working now
-                workinghours__name__in=[datetime.now().strftime('%a')], # returns current day in short format (Mon, Tue)
+                workinghours__name__in=[days_eng_to_hr[datetime.now().strftime('%a')]], # returns current day in short format (Mon, Tue)
                 workinghours__start_time__lte=datetime.now().time(),
                 workinghours__end_time__gte=datetime.now().time()
             )
