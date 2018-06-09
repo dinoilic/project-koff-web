@@ -1,6 +1,6 @@
 # project-koff-web
 
-Mobile app available [here](https://github.com/dinoilic/project-koff-ma):
+Mobile app available [here](https://github.com/dinoilic/project-koff-ma)
 
 ## Setup
 
