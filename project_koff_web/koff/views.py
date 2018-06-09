@@ -128,11 +128,11 @@ class BusinessEntities(generics.ListAPIView,
         radius = float(self.request.query_params.get('radius', None))
 
         queryset = BusinessEntity.objects.filter(
-            active=True,
-            location__distance_lte=(
-                Point(lat, lon),
-                D(km=radius)
-            )
+            active=True#,
+            #location__distance_lte=(
+            #    Point(lat, lon),
+            #    D(km=radius)
+            #)
         )
 
         if ids:
@@ -181,10 +181,17 @@ class BusinessEntities(generics.ListAPIView,
         elif (sort_mode == 'z_a'):
             queryset = queryset.order_by('-name')
 
+        new_queryset = []
+        radius *= 1000.0
+
         for item in queryset:
             distance_matrix = gmaps.distance_matrix(origins=(lat, lon), destinations=(item.location.x,item.location.y))
-            res = distance_matrix['rows'][0]['elements'][0]['distance']['value']
-            item.distance.m = res
+            distance = distance_matrix['rows'][0]['elements'][0]['distance']['value']
+            if distance < radius:
+                item.distance.m = distance
+                new_queryset.append(item)
+
+        queryset = new_queryset
 
         if(sort_mode == 'distance' or sort_mode is None):
             queryset = sorted(queryset, key=operator.attrgetter('distance.m'))
