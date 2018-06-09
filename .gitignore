@@ -105,3 +105,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# config for secrets
+project_koff_web/config/__init__.py

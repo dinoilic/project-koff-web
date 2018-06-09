@@ -6,6 +6,7 @@ from rest_framework.pagination import PageNumberPagination
 from .models import Category, BusinessEntity, RatingAndComment
 from django.db.models import Avg, Q, Case, Count, When, IntegerField, Value
 from django.db.models.functions import Coalesce
+from django.conf import settings
 from .serializers import CategorySerializer, BusinessEntitySerializer, BusinessEntityDetailSerializer, BusinessEntitySearchSerializer, RatingAndCommentSerializer, RatingAndCommentPostSerializer, TokenSerializer
 from datetime import datetime
 
@@ -163,7 +164,7 @@ class BusinessEntities(generics.ListAPIView,
 
         # Get distance from provided location to BusinessEntity location
         gmaps = googlemaps.Client(
-            key=***REMOVED***
+            key=settings.GOOGLE_API_KEY
         )
         dist = Distance('location', Point(lat, lon, srid=4326))
         queryset = queryset.annotate(distance=dist)

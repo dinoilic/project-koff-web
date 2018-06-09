@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand
 from project_koff_web.koff import models
 from django.contrib.auth import get_user_model
+from django.conf import settings
+from project_koff_web.config import common
 import datetime
 
 import googlemaps  # used for geocoding
@@ -17,7 +19,7 @@ class Command(BaseCommand):
         translation.activate('hr')
         User = get_user_model()
         gmaps = googlemaps.Client(
-            key=***REMOVED***
+            key=settings.GOOGLE_API_KEY
         )
 
         # Deleting everything
