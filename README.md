@@ -1,5 +1,11 @@
 # project-koff-web
 
-In file *project\_koff\_web/config/\_\_init\_\_.py*, put:
+Create a file *project\_koff\_web/config/\_\_init\_\_.py* with 
+following content:
 
-- GOOGLE_API_KEY = 'YOUR_API_KEY'
+```
+from .local import Local
+from .production import Production
+
+GOOGLE_API_KEY = 'YOUR_API_KEY'
+```
